@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL;
+// ✅ CORRECT - Use the same variable name
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_BASE_URL, // ✅ Use API_BASE_URL, not API_URL
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // Add timeout for better error handling
 });
 
 // Add token to requests
@@ -31,6 +33,13 @@ api.interceptors.response.use(
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
+    
+    // Better error handling
+    if (!error.response) {
+      console.error('Network error:', error.message);
+      return Promise.reject(new Error('Network error. Please check your connection.'));
+    }
+    
     return Promise.reject(error);
   }
 );
