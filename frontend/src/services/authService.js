@@ -1,12 +1,14 @@
 import api from './api';
 
 const authService = {
-login: (email, password) => api.post('/auth/login', { email, password }),
-register: (userData) => api.post('/auth/register', userData),
+  login: (email, password) => 
+    api.post('/auth/login', { email, password }),  // ✅ /auth/login (not /api/auth/login)
 
-// bookingService.js  
-createBooking: (bookingData) => api.post('/bookings', bookingData),
-getMyBookings: () => api.get('/bookings/mybookings')
+  register: (userData) => 
+    api.post('/auth/register', userData),          // ✅ /auth/register
+
+  getMe: () => 
+    api.get('/auth/me')                            // ✅ /auth/me
 };
 
 export default authService;
