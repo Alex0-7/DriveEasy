@@ -8,7 +8,7 @@ const authService = {
     api.post('/auth/register', userData),
 
   getMe: () => 
-    api.get('/auth/me'),
+    api.get('/auth/me')
 };
 
 export default authService;
