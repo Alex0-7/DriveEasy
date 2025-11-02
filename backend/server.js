@@ -119,14 +119,11 @@ app.use((req, res, next) => {
 });
 
 // CORS configuration
+// CORS - Update with all possible frontend URLs
+// CORS - TEMPORARY FIX (allow all origins)
 app.use(cors({
-  origin: [
-    "https://drive-easy-coral.vercel.app", // Your current Vercel frontend
-    "https://car-rental-frontend-orpin.vercel.app", // Your old Vercel frontend
-    "http://localhost:3000",
-    "https://alex0-7.github.io"
-  ],
-  credentials: true,
+  origin: "*", // Allow ALL domains
+  credentials: false, // Must be false when using "*"
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
