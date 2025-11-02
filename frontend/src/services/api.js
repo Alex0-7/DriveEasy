@@ -26,6 +26,7 @@ api.interceptors.request.use(
 );
 
 // Handle responses and errors
+// Handle responses and errors
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
@@ -34,13 +35,16 @@ api.interceptors.response.use(
       window.location.href = '/login';
     }
     
-    // Better error handling
-    if (!error.response) {
-      console.error('Network error:', error.message);
-      return Promise.reject(new Error('Network error. Please check your connection.'));
+    // Better error messages
+    if (error.response?.status === 405) {
+      throw new Error('Method not allowed. Please check the API endpoint.');
     }
     
-    return Promise.reject(error);
+    if (!error.response) {
+      throw new Error('Network error. Please check your connection.');
+    }
+    
+    throw new Error(error.response?.data?.message || 'An error occurred');
   }
 );
 
