@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 // ✅ CORRECT - Use the same variable name
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://driveeasy-backend.onrender.com/api';
+// Correct way to use the environment variable
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-  baseURL: API_BASE_URL, // ✅ Use API_BASE_URL, not API_URL
+  baseURL: API_BASE_URL, // This should resolve to "https://driveeasy-backend.onrender.com/api"
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // Add timeout for better error handling
 });
 
 // Add token to requests
